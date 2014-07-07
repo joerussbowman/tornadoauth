@@ -2,6 +2,10 @@
 import tornado.ioloop
 import tornado.web
 
+# user info for tests
+USERNAME = "user"
+USERPW = "password"
+
 class MainHandler(tornado.web.RequestHandle):
     """ Just a helloworld handler taken from the offical tornado docs to act
     as a placeholder while I start to write tests."""
