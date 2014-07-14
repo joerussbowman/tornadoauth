@@ -2,9 +2,19 @@
 import tornado.ioloop
 import tornado.web
 
-# user info for tests
-USERNAME = "user"
-USERPW = "password"
+# generics
+class User(object):
+    username = ""
+    password = ""
+
+#oauth2
+class Oauth2Client(object):
+    user = User
+    client_id = ""
+
+class Oauth2Token(object):
+    client = Oauth2Token
+    user = User
 
 class MainHandler(tornado.web.RequestHandle):
     """ Just a helloworld handler taken from the offical tornado docs to act

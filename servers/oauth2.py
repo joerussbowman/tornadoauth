@@ -1,6 +1,7 @@
 # codeing: utf-8
 import tornado.web
 from oauthlib.oauth2 import WebApplicationServer
+from ..utils import extract_params
 
 class Oauth2Handler(tornado.web.RequestHandler):
     def get_current_user():
@@ -30,7 +31,8 @@ class Oauth2Server(object):
 
 class AuthorizationViewHandler(tornado.web.requestHandler):
     def get(self):
-
+        uri, method, body, headers = extract_params(self.request)
+       
 
             
     
