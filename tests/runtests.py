@@ -4,17 +4,20 @@ import tornado.web
 
 # generics
 class User(object):
-    username = ""
-    password = ""
+    def __init__(self, username=None, password=None):
+        self.username = username
+        self.password = password
 
 #oauth2
 class Oauth2Client(object):
-    user = User
-    client_id = ""
+    def __init__(self, user=None, client_id=None):
+        self.user = user
+        self.client_id = client_id
 
 class Oauth2Token(object):
-    client = Oauth2Token
-    user = User
+    def __init__(self, client=None, user=None):
+        self.client = client
+        self.user = user
 
 class MainHandler(tornado.web.RequestHandle):
     """ Just a helloworld handler taken from the offical tornado docs to act
