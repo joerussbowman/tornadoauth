@@ -3,10 +3,6 @@ import tornado.web
 from oauthlib.oauth2 import WebApplicationServer
 from ..utils import extract_params
 
-class Oauth2Handler(tornado.web.RequestHandler):
-    def get_current_user():
-        pass
-        # stub, will return oauth identiier
 
 class Oauth2Server(object):
     """ Oauth2Server modified the passed application object with everything

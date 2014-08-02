@@ -1,23 +1,48 @@
 #!/usr/bin/env python
-import tornado.ioloop
+import uuid
 import tornado.web
+import tornado.ioloop
+from oauthlib.oauth2 import RequestValidator, WebApplicationServer
 
-# generics
+# generic user model
 class User(object):
-    def __init__(self, username=None, password=None):
-        self.username = username
+    def __init__(self, name=None, password=None):
+        self.name = name
         self.password = password
+        self.client = None
 
-#oauth2
+#oauth2 client model
 class Oauth2Client(object):
     def __init__(self, user=None, client_id=None):
         self.user = user
-        self.client_id = client_id
+        self.id = unicode(uuid.uuid4()) # client id should be unicode
 
+#oauth2 token model
 class Oauth2Token(object):
-    def __init__(self, client=None, user=None):
+    def __init__(self, client=None, user=None, token=None, refreshToken=None)
         self.client = client
         self.user = user
+        self.token = unicode(uuid.uuid4()) 
+        self.refreshToken = unicode(uuid.uuid4()) 
+
+
+users = [
+        User(name="test1", password="t123"),
+        User(name="test2", password="t321"),
+        ]
+
+oauth2Tokens = []
+oauth2Clients = []
+
+def oauth2ClientGetter(id):
+    for client in clients:
+        if client.id == id:
+            return client
+    return None
+
+def oauth2ClientSetter(user = None):
+    clients.append(Client(user=user))
+
 
 class MainHandler(tornado.web.RequestHandle):
     """ Just a helloworld handler taken from the offical tornado docs to act
@@ -37,10 +62,13 @@ def main():
     so this may all be rewritten to either stop and create new servers or to
     edit the application on the fly. Haven't sorted that out yet."""
 
+
     application = tornado.web.Application([
         (r"/", MainHandler),
         ])
-# tornadoauth.addOauth2handlers(application)
+
+    application.oauth2Server = tornadoauth.oauth2Server()
+
 # This should test adding the handlers to the application
     application.listen(8888)
     tornado.ioloop.IOLoop.instance().start()
